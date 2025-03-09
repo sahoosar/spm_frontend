@@ -1,0 +1,22 @@
+<h2>Dashboard</h2>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  <div class="search-container">
+    <label for="stockSymbol">Stock Symbol:</label>
+    <input
+      id="stockSymbol"
+      type="text"
+      formControlName="stockSymbol"
+      placeholder="Enter stock symbol"
+    />
+    <button type="submit">Search</button>
+  </div>
+</form>
+
+<!-- Display the stock data if it exists -->
+<div *ngIf="stock">
+  <h3>Stock Information</h3>
+  <p><strong>Symbol:</strong> {{ stock.symbol }}</p>
+  <p><strong>Price:</strong> {{ stock.price }}</p>
+  <!-- Add more fields as needed -->
+</div>
