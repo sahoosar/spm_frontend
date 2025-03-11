@@ -46,8 +46,22 @@
                         <td>{{ symbol.high }}</td>
                         <td>{{ symbol.low }}</td>
                         <td>{{ symbol.price }}</td>
-                        <td><button class="buy-btn">Buy</button></td>
-                        <td><button class="sell-btn">Sell</button></td>
+                        <td>
+                            <button class="buy-btn" (click)="onBuy(symbol)">
+                                <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" fill="green" />
+                                    <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="sell-btn" (click)="onSell(symbol)">
+                                <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" fill="red" />
+                                    <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

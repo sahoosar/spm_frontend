@@ -108,6 +108,39 @@
     color: red;
 }
 
+/* Style for Buy (+) and Sell (-) buttons */
+
+.buy-btn, .sell-btn {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Fancy Green Plus Icon */
+.buy-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Fancy Red Minus Icon */
+.sell-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hover Effect */
+.buy-btn:hover .buy-icon, .sell-btn:hover .sell-icon {
+    transform: scale(1.2);
+}
+
+
+
 
 /* Responsive - Tabs Adjust for Smaller Screens */
 @media (max-width: 768px) {

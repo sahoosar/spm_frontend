@@ -46,4 +46,15 @@ export class DashboardComponent implements OnInit {
   onSearch() {
     console.log("Searching for:", this.searchForm.value.stockSymbol);
   }
+
+  onBuy(symbol: any) {
+    console.log("Buying:", symbol.name);
+    // Add buy logic here
+}
+
+onSell(symbol: any) {
+    console.log("Selling:", symbol.name);
+    // Add sell logic here
+}
+
 }
