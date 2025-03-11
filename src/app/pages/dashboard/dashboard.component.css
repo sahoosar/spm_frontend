@@ -140,6 +140,207 @@
 }
 
 
+/* Align Summary Section Below Tabs */
+/* Align Summary Section in One Row */
+.summary-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 5px; /* Space between tabs and summary */
+    flex-wrap: nowrap; /* Ensure everything stays in one row */
+}
+
+/* Info Boxes (Investment, Profit, Loss) */
+.info-box {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 180px; /* Ensure equal width */
+}
+
+/* Fancy Search Box */
+.search-box {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #007bff;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    min-width: 300px; /* Ensure the search bar doesn't take too much space */
+}
+
+/* Search Input */
+.search-box input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 8px;
+}
+
+/* Search Button */
+.search-box .search-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Search Button Hover */
+.search-box .search-btn:hover {
+    background: #0056b3;
+}
+
+/* Responsive Fix */
+@media (max-width: 1024px) {
+    .summary-section {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .info-box {
+        flex: none;
+        width: 30%;
+    }
+    .search-box {
+        flex: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/* Align Summary Section in One Row */
+
+/* Summary Section: Reduce Height & Move Closer */
+.summary-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px; /* Reduce spacing */
+    padding: 6px 10px; /* Reduce padding for smaller height */
+    background: #f9f9f9; /* Lighter background */
+    border-radius: 6px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    margin-top: 2px; /* Move closer to tabs */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Info Boxes: Reduce Height & Auto-Adjust Text */
+.info-box {
+    flex: 1;
+    text-align: center;
+    padding: 6px;
+    background: #f3f3f3; /* Soft background */
+    border-radius: 6px;
+    font-size: 13px; /* Adjust text size */
+    font-weight: bold;
+    min-width: 120px;
+}
+
+/* Auto-Adjust Font Size for Numbers */
+.info-box h3 {
+    font-size: clamp(16px, 2vw, 22px); /* Auto adjusts based on screen size */
+    margin: 4px 0; /* Reduce spacing */
+}
+
+/* Profit Text */
+.profit-text {
+    color: green;
+}
+
+/* Loss Text */
+.loss-text {
+    color: red;
+}
+
+/* Fancy Search Box: Reduce Height */
+.search-box {
+    flex: 1.5;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #ccc; /* Lighter border */
+    padding: 6px; /* Reduce padding */
+    border-radius: 16px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+    min-width: 220px;
+}
+
+/* Search Input */
+.search-box input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 14px; /* Adjust font size */
+    padding: 4px;
+}
+
+/* Search Button */
+.search-box .search-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Search Button Hover */
+.search-box .search-btn:hover {
+    background: #0056b3;
+}
+
+/* Responsive Fix */
+@media (max-width: 1024px) {
+    .summary-section {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .info-box {
+        flex: none;
+        width: 28%;
+    }
+    .search-box {
+        flex: none;
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+
+/* Responsive Layout */
+@media (max-width: 786px) {
+    .summary-section {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .info-box {
+        flex: none;
+        width: 30%;
+    }
+    .search-box {
+        flex: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+}
 
 
 /* Responsive - Tabs Adjust for Smaller Screens */

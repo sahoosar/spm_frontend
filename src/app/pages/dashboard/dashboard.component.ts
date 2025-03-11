@@ -8,7 +8,19 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({}); // ✅ Initialize searchForm to avoid TypeScript error
+  
   selectedTab: string = 'Symbols List'; // ✅ Default tab
+  
+  // ✅ Function to switch tabs
+  setTab(tabName: string) {
+    this.selectedTab = tabName;
+  }
+
+  totalInvestment = 100000; // Example total investment amount
+  overallProfit = 4500; // Example profit amount
+  overallLoss = 0.05; // 5% loss
+
+  constructor(private fb: FormBuilder) {} // ✅ Inject FormBuilder
 
   // ✅ Define sample data for positions
   positions = [
@@ -28,18 +40,11 @@ export class DashboardComponent implements OnInit {
     { name: 'TSLA', open: 700, high: 720, low: 690, price: 710 },
   ];
 
-  constructor(private fb: FormBuilder) {} // ✅ Inject FormBuilder
-
   ngOnInit() {
     // ✅ Properly initialize searchForm in ngOnInit()
     this.searchForm = this.fb.group({
       stockSymbol: ['']
     });
-  }
-
-  // ✅ Function to switch tabs
-  setTab(tabName: string) {
-    this.selectedTab = tabName;
   }
 
   // ✅ Function for handling search (Mock implementation)
@@ -75,4 +80,5 @@ onBuyHolding(holding:any){
 onSellHolding(holding:any){
   // Add your logic for selling the stock position
 }
+
 }

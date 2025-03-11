@@ -20,12 +20,35 @@
 <div class="tab-content">
     <!-- Symbols List -->
     <div *ngIf="selectedTab === 'Symbols List'">
-        <form [formGroup]="searchForm">
-            <div class="search-box">
-                <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
-                <button type="button" class="search-btn" (click)="onSearch()">🔍</button>
+      
+        <!-- Summary Section: All in One Row -->
+        <div class="summary-section">
+            <!-- 1st Section: Total Investment -->
+            <div class="info-box total-investment">
+                <p>Total Investment</p>
+                <h3>{{ totalInvestment | currency }}</h3>
             </div>
-        </form>
+        
+            <!-- 2nd Section: Overall Profit -->
+            <div class="info-box overall-profit">
+                <p>Overall Profit</p>
+                <h3 class="profit-text">{{ overallProfit | currency }}</h3>
+            </div>
+        
+            <!-- 3rd Section: Overall Loss Percentage -->
+            <div class="info-box overall-loss">
+                <p>Overall Loss (%)</p>
+                <h3 class="loss-text">{{ overallLoss | percent }}</h3>
+            </div>
+        
+            <!-- 4th Section: Fancy Search Bar -->
+            <form [formGroup]="searchForm" class="search-box">
+                <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
+                <button type="button" class="search-btn" (click)="onSearch()">
+                    🔍
+                </button>
+            </form>
+        </div>
         <div class="table-container">
             <table class="table">
                 <thead>
