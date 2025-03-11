@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { StockService } from '../../services/stock.service';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,84 +7,43 @@ import { StockService } from '../../services/stock.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  searchForm: FormGroup;
-  stock: any = null;
-  symbols: any[] = [];
-  selectedSymbol: any = null;
-  showPopup: boolean = false;
+  searchForm: FormGroup = new FormGroup({}); // ✅ Initialize searchForm to avoid TypeScript error
+  selectedTab: string = 'Symbols List'; // ✅ Default tab
 
-  @ViewChild('tableContainer') tableContainer!: ElementRef;
+  // ✅ Define sample data for positions
+  positions = [
+    { stock: 'AAPL', quantity: 10, avgPrice: 150, currentPrice: 155, profitLoss: 50 },
+    { stock: 'TSLA', quantity: 5, avgPrice: 700, currentPrice: 680, profitLoss: -100 },
+  ];
 
-  constructor(private fb: FormBuilder, private stockService: StockService) {
+  // ✅ Define sample data for holdings
+  holdings = [
+    { asset: 'AAPL', quantity: 20, value: 3000, change: 0.05 },
+    { asset: 'MSFT', quantity: 15, value: 2500, change: -0.02 },
+  ];
+
+  // ✅ Define sample data for symbols (Stocks List)
+  symbols = [
+    { name: 'AAPL', open: 150, high: 155, low: 148, price: 152 },
+    { name: 'TSLA', open: 700, high: 720, low: 690, price: 710 },
+  ];
+
+  constructor(private fb: FormBuilder) {} // ✅ Inject FormBuilder
+
+  ngOnInit() {
+    // ✅ Properly initialize searchForm in ngOnInit()
     this.searchForm = this.fb.group({
       stockSymbol: ['']
     });
   }
 
-  ngOnInit(): void {
-    this.loadSymbols();
+  // ✅ Function to switch tabs
+  setTab(tabName: string) {
+    this.selectedTab = tabName;
   }
 
-  // ✅ Load stock symbols into the table
-  loadSymbols(): void {
-    this.stockService.getSymbols().subscribe(data => {
-      this.symbols = data;
-      setTimeout(() => this.scrollToBottom(), 100);
-    });
-  }
-
-  // ✅ Trigger search only when clicking the search button
-  onSearch(): void {
-    const symbol = this.searchForm.value.stockSymbol.trim();
-    if (!symbol) {
-      alert('❌ Please enter a valid stock symbol.');
-      return;
-    }
-
-    this.stockService.searchSymbols(symbol).subscribe({
-      next: (data) => {
-        if (!data || Object.keys(data).length === 0) {
-          alert(`⚠️ Symbol "${symbol}" not found. Please enter a valid symbol.`);
-          return;
-        }
-
-        this.stock = data;
-        this.selectedSymbol = data;
-        this.showPopup = true;
-
-        // ✅ Show success alert with stock details
-        alert(`✅ Stock Found:\nSymbol: ${data.name}\nPrice: $${data.price}`);
-      },
-      error: (err) => {
-        console.error('Error fetching stock data:', err);
-        alert(`❌ Error: Unable to fetch data for "${symbol}". Please try again.`);
-      }
-    });
-  }
-
-  // ✅ Add selected stock to the list
-  addSymbol(): void {
-    if (!this.selectedSymbol) return;
-
-    this.stockService.addSymbol(this.selectedSymbol).subscribe(response => {
-      this.showPopup = false;
-      this.loadSymbols();
-      setTimeout(() => this.scrollToBottom(), 200);
-
-      // ✅ Show alert with response message
-      alert(`✅ Stock Added Successfully!\nSymbol: ${this.selectedSymbol.name}\nPrice: $${this.selectedSymbol.price}`);
-    });
-  }
-
-  // ✅ Close popup
-  closePopup(): void {
-    this.showPopup = false;
-  }
-
-  // ✅ Scroll to the bottom of the stock list
-  scrollToBottom(): void {
-    if (this.tableContainer) {
-      this.tableContainer.nativeElement.scrollTop = this.tableContainer.nativeElement.scrollHeight;
-    }
+  // ✅ Function for handling search (Mock implementation)
+  onSearch() {
+    console.log("Searching for:", this.searchForm.value.stockSymbol);
   }
 }

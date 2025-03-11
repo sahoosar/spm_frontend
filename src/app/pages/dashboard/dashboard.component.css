@@ -1,3 +1,4 @@
+/* Container */
 .container {
     max-width: 900px;
     margin: 20px auto;
@@ -14,8 +15,7 @@
     background: white;
     border: 2px solid #007bff;
     padding: 10px;
-    border-radius: 25px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
     transition: 0.3s;
     margin-top: 15px;
 }
@@ -42,28 +42,82 @@
     background: #0056b3;
 }
 
-/* Popup Overlay */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    z-index: 10;
+/* Tabs Container */
+/* Tabs Container */
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 3px solid #ddd;
+    background: #f8f9fa;
 }
 
-/* Popup */
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+/* Individual Tab */
+.tab {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
     text-align: center;
-    z-index: 20;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    background-color: #e9ecef;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.tab:hover {
+    background-color: #d6d8db;
+}
+
+/* Active Tab */
+.active-tab {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.profit {
+    color: green;
+}
+
+.loss {
+    color: red;
+}
+
+
+/* Responsive - Tabs Adjust for Smaller Screens */
+@media (max-width: 768px) {
+    .tabs {
+        flex-direction: column; /* Stack tabs in small screens */
+    }
+    .tab {
+        flex: none;
+        width: 100%;
+        font-size: 14px;
+        padding: 10px 15px;
+    }
 }
