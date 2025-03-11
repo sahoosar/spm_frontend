@@ -1,47 +1,91 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { StockService } from '../../services/stock.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   searchForm: FormGroup;
-  stock: any; // or define a Stock interface for strong typing
+  stock: any = null;
+  symbols: any[] = [];
+  selectedSymbol: any = null;
+  showPopup: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  @ViewChild('tableContainer') tableContainer!: ElementRef;
+
+  constructor(private fb: FormBuilder, private stockService: StockService) {
     this.searchForm = this.fb.group({
       stockSymbol: ['']
     });
   }
 
-  onSearch() {
-    // Get the symbol from the form
-    const symbol = this.searchForm.value.stockSymbol.trim();
+  ngOnInit(): void {
+    this.loadSymbols();
+  }
 
+  // ✅ Load stock symbols into the table
+  loadSymbols(): void {
+    this.stockService.getSymbols().subscribe(data => {
+      this.symbols = data;
+      setTimeout(() => this.scrollToBottom(), 100);
+    });
+  }
+
+  // ✅ Trigger search only when clicking the search button
+  onSearch(): void {
+    const symbol = this.searchForm.value.stockSymbol.trim();
     if (!symbol) {
-      alert('Please enter a stock symbol.');
+      alert('❌ Please enter a valid stock symbol.');
       return;
     }
 
-    const url = `http://192.168.0.70:8080/stocks/${symbol}`;
-    const token = localStorage.getItem('access_token');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json'
-    }); 
-    this.http.get(url,{headers}).subscribe({
+    this.stockService.searchSymbols(symbol).subscribe({
       next: (data) => {
+        if (!data || Object.keys(data).length === 0) {
+          alert(`⚠️ Symbol "${symbol}" not found. Please enter a valid symbol.`);
+          return;
+        }
+
         this.stock = data;
-        console.log('Stock data received:', data);
+        this.selectedSymbol = data;
+        this.showPopup = true;
+
+        // ✅ Show success alert with stock details
+        alert(`✅ Stock Found:\nSymbol: ${data.name}\nPrice: $${data.price}`);
       },
       error: (err) => {
         console.error('Error fetching stock data:', err);
-        alert('Failed to fetch stock data. Check console for details.');
+        alert(`❌ Error: Unable to fetch data for "${symbol}". Please try again.`);
       }
     });
+  }
+
+  // ✅ Add selected stock to the list
+  addSymbol(): void {
+    if (!this.selectedSymbol) return;
+
+    this.stockService.addSymbol(this.selectedSymbol).subscribe(response => {
+      this.showPopup = false;
+      this.loadSymbols();
+      setTimeout(() => this.scrollToBottom(), 200);
+
+      // ✅ Show alert with response message
+      alert(`✅ Stock Added Successfully!\nSymbol: ${this.selectedSymbol.name}\nPrice: $${this.selectedSymbol.price}`);
+    });
+  }
+
+  // ✅ Close popup
+  closePopup(): void {
+    this.showPopup = false;
+  }
+
+  // ✅ Scroll to the bottom of the stock list
+  scrollToBottom(): void {
+    if (this.tableContainer) {
+      this.tableContainer.nativeElement.scrollTop = this.tableContainer.nativeElement.scrollHeight;
+    }
   }
 }

@@ -37,7 +37,6 @@ export class LoginComponent {
      this.authService.login(credentials).subscribe({
       next: token => {
         if (token) {
-          alert('Login successful!'+token);
           this.authService.saveToken(token.trim());
           this.router.navigate(['/dashboard']).then(success => console.log('Navigation success:', success))
           .catch(err => console.error('Navigation error:', err));

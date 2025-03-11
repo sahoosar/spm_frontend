@@ -1,22 +1,58 @@
-<h2>Dashboard</h2>
+<div class="container">
+    <h2 class="text-center">Portfolio</h2>
 
-<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-  <div class="search-container">
-    <label for="stockSymbol">Stock Symbol:</label>
-    <input
-      id="stockSymbol"
-      type="text"
-      formControlName="stockSymbol"
-      placeholder="Enter stock symbol"
-    />
-    <button type="submit">Search</button>
-  </div>
-</form>
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active-tab">Symbols List</div>
+        <div class="tab">Positions</div>
+        <div class="tab">Holdings</div>
+    </div>
 
-<!-- Display the stock data if it exists -->
-<div *ngIf="stock">
-  <h3>Stock Information</h3>
-  <p><strong>Symbol:</strong> {{ stock.symbol }}</p>
-  <p><strong>Price:</strong> {{ stock.price }}</p>
-  <!-- Add more fields as needed -->
+    <!-- Fancy Search Box -->
+    <form [formGroup]="searchForm">
+        <div class="search-box">
+            <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
+            <button type="button" class="search-btn" (click)="onSearch()">🔍</button>
+        </div>
+    </form>
+
+    <!-- Add Symbol Popup -->
+    <div class="popup-overlay" *ngIf="showPopup" (click)="closePopup()"></div>
+    <div class="popup" *ngIf="showPopup">
+        <p class="popup-title">Stock Information</p>
+        <p><strong>Symbol:</strong> {{ selectedSymbol?.name }}</p>
+        <p><strong>Price:</strong> ${{ selectedSymbol?.price }}</p>
+        <div class="popup-buttons">
+            <button class="cancel-btn" (click)="closePopup()">Cancel</button>
+            <button class="add-btn" (click)="addSymbol()">Add</button>
+        </div>
+    </div>
+
+    <!-- Scrollable Table -->
+    <div class="table-container" #tableContainer>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Price</th>
+                    <th>Buy</th>
+                    <th>Sell</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let symbol of symbols">
+                    <td>{{ symbol.name }}</td>
+                    <td>{{ symbol.open }}</td>
+                    <td>{{ symbol.high }}</td>
+                    <td>{{ symbol.low }}</td>
+                    <td>{{ symbol.price }}</td>
+                    <td><button class="buy-btn">Buy</button></td>
+                    <td><button class="sell-btn">Sell</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
