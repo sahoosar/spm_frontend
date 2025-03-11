@@ -79,6 +79,8 @@
                     <th>Avg Price</th>
                     <th>Current Price</th>
                     <th>Profit/Loss</th>
+                    <th>Buy</th>
+                    <th>Sell</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,6 +91,26 @@
                     <td>{{ position.currentPrice }}</td>
                     <td [ngClass]="{ 'profit': position.profitLoss > 0, 'loss': position.profitLoss < 0 }">
                         {{ position.profitLoss | currency }}
+                    </td>
+                    
+                    <!-- Buy Button (Green Plus Icon) -->
+                    <td>
+                        <button class="buy-btn" (click)="onBuyPosition(position)">
+                            <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="green" />
+                                <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </td>
+    
+                    <!-- Sell Button (Red Minus Icon) -->
+                    <td>
+                        <button class="sell-btn" (click)="onSellPosition(position)">
+                            <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="red" />
+                                <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -105,6 +127,8 @@
                     <th>Quantity</th>
                     <th>Value</th>
                     <th>Change</th>
+                    <th>Buy</th>
+                    <th>Sell</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,6 +139,24 @@
                     <td [ngClass]="{ 'profit': holding.change > 0, 'loss': holding.change < 0 }">
                         {{ holding.change | percent }}
                     </td>
+                    <!-- Buy Button (Green Plus Icon) -->
+                <td>
+                    <button class="buy-btn" (click)="onBuyHolding(holding)">
+                        <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="green" />
+                            <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </td>
+                <!-- Sell Button (Red Minus Icon) -->
+                <td>
+                    <button class="sell-btn" (click)="onSellHolding(holding)">
+                        <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="red" />
+                            <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </td>
                 </tr>
             </tbody>
         </table>

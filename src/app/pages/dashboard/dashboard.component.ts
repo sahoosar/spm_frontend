@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
     console.log("Searching for:", this.searchForm.value.stockSymbol);
   }
 
-  onBuy(symbol: any) {
+onBuy(symbol: any) {
     console.log("Buying:", symbol.name);
     // Add buy logic here
 }
@@ -57,4 +57,22 @@ onSell(symbol: any) {
     // Add sell logic here
 }
 
+
+onBuyPosition(position: any) {
+  console.log("Buying more of:", position.stock);
+  // Add your logic for increasing the position in the stock
+}
+
+onSellPosition(position: any) {
+  console.log("Selling:", position.stock);
+  // Add your logic for selling the stock position
+}
+
+onBuyHolding(holding:any){
+  // Add your logic for increasing the position in the stock
+}
+
+onSellHolding(holding:any){
+  // Add your logic for selling the stock position
+}
 }
