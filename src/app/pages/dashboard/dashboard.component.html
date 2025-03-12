@@ -1,8 +1,6 @@
 <div class="container">
     <h2 class="text-center">Portfolio</h2>
 
-    
-    <!-- Tabs -->
     <!-- Tabs -->
 <div class="tabs">
     <div class="tab" [class.active-tab]="selectedTab === 'Symbols List'" (click)="setTab('Symbols List')">
@@ -42,12 +40,35 @@
             </div>
         
             <!-- 4th Section: Fancy Search Bar -->
-            <form [formGroup]="searchForm" class="search-box">
-                <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
-                <button type="button" class="search-btn" (click)="onSearch()">
-                    🔍
-                </button>
-            </form>
+            <!-- Search Bar -->
+           <form [formGroup]="searchForm" class="search-box">
+             <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
+             <button type="button" class="search-btn" (click)="onSearch()">🔍</button>
+           </form>
+           <!-- Popup Overlay -->
+           <div class="popup-overlay" *ngIf="showPopup" (click)="closePopup()"></div>
+
+          <!-- Popup Window -->
+           <div class="popup" *ngIf="showPopup">
+              <p class="popup-title">Stock Information</p>
+    
+              <!-- If symbol exists, show details -->
+                <div *ngIf="selectedSymbol">
+                    <p><strong>Symbol:</strong> {{ selectedSymbol.name }}</p>
+                    <p><strong>Price:</strong> ${{ selectedSymbol.price }}</p>
+                    <div class="popup-buttons">
+                        <button class="cancel-btn" (click)="closePopup()">Cancel</button>
+                        <button class="add-btn" (click)="addSymbol()">Add</button>
+                    </div>
+                </div>
+
+                <!-- If symbol does not exist, show error -->
+                <div *ngIf="!selectedSymbol">
+                    <p>{{ popupMessage }}</p>
+                    <button class="cancel-btn" (click)="closePopup()">OK</button>
+                </div>
+           </div>
+
         </div>
         <div class="table-container">
             <table class="table">

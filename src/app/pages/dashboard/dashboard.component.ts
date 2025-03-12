@@ -6,11 +6,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({}); // ✅ Initialize searchForm to avoid TypeScript error
   
   selectedTab: string = 'Symbols List'; // ✅ Default tab
-  
   // ✅ Function to switch tabs
   setTab(tabName: string) {
     this.selectedTab = tabName;
@@ -20,7 +20,22 @@ export class DashboardComponent implements OnInit {
   overallProfit = 4500; // Example profit amount
   overallLoss = 0.05; // 5% loss
 
-  constructor(private fb: FormBuilder) {} // ✅ Inject FormBuilder
+
+
+  //searchForm: FormGroup;
+  showPopup = false;
+  popupMessage = '';
+  selectedSymbol: any = null;
+
+// Example symbol data
+symbolsForpopup = [
+  { name: 'AAPL', price: 152 },
+  { name: 'TSLA', price: 710 },
+  { name: 'GOOGL', price: 2800 }
+];
+  
+constructor(private fb: FormBuilder) {} // ✅ Inject FormBuilder
+
 
   // ✅ Define sample data for positions
   positions = [
@@ -34,6 +49,8 @@ export class DashboardComponent implements OnInit {
     { asset: 'MSFT', quantity: 15, value: 2500, change: -0.02 },
   ];
 
+
+
   // ✅ Define sample data for symbols (Stocks List)
   symbols = [
     { name: 'AAPL', open: 150, high: 155, low: 148, price: 152 },
@@ -46,10 +63,44 @@ export class DashboardComponent implements OnInit {
       stockSymbol: ['']
     });
   }
+  
 
   // ✅ Function for handling search (Mock implementation)
-  onSearch() {
-    console.log("Searching for:", this.searchForm.value.stockSymbol);
+ // Search function
+ onSearch() {
+  const searchSymbol = this.searchForm.value.stockSymbol.trim().toUpperCase();
+  
+  if (!searchSymbol) {
+    this.showPopup = true;
+    this.popupMessage = 'Please enter a symbol to search.';
+    this.selectedSymbol = null;
+    return;
+  }
+
+  const foundSymbol = this.symbolsForpopup.find(s => s.name === searchSymbol);
+
+    if (foundSymbol) {
+      this.selectedSymbol = foundSymbol;
+      this.popupMessage = ''; // Clear any previous message
+    } else {
+      this.selectedSymbol = null;
+      this.popupMessage = `Symbol "${searchSymbol}" does not exist.`;
+    }
+
+    this.showPopup = true; // Show popup in both cases
+  }
+
+  // Close popup
+  closePopup() {
+    this.showPopup = false;
+    this.selectedSymbol = null;
+    this.popupMessage = '';
+  }
+
+  // Add symbol (mock function)
+  addSymbol() {
+    console.log(`Adding ${this.selectedSymbol?.name} to portfolio.`);
+    this.closePopup();
   }
 
 onBuy(symbol: any) {
