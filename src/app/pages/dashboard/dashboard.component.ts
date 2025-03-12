@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit {
   popupMessage = '';
   selectedSymbol: any = null;
 
+  previousPrices: { [key: string]: number } = {}; // Store previous prices
+
 // Example symbol data
 symbolsForpopup = [
   { name: 'AAPL', price: 152 },
@@ -62,6 +64,12 @@ constructor(private fb: FormBuilder) {} // ✅ Inject FormBuilder
     this.searchForm = this.fb.group({
       stockSymbol: ['']
     });
+
+    // Initialize previous prices
+    this.symbols.forEach(symbol => {
+      this.previousPrices[symbol.name] = symbol.price;
+    });
+
   }
   
 
@@ -101,6 +109,12 @@ constructor(private fb: FormBuilder) {} // ✅ Inject FormBuilder
   addSymbol() {
     console.log(`Adding ${this.selectedSymbol?.name} to portfolio.`);
     this.closePopup();
+  }
+
+  // Function to determine price color (Green if increased, Red if decreased)
+  getPriceColor(symbolName: string, currentPrice: number): string {
+    const prevPrice = this.previousPrices[symbolName] || currentPrice;
+    return currentPrice > prevPrice ? 'green' : currentPrice < prevPrice ? 'red' : 'black';
   }
 
 onBuy(symbol: any) {

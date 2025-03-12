@@ -55,7 +55,13 @@
               <!-- If symbol exists, show details -->
                 <div *ngIf="selectedSymbol">
                     <p><strong>Symbol:</strong> {{ selectedSymbol.name }}</p>
-                    <p><strong>Price:</strong> ${{ selectedSymbol.price }}</p>
+                    <p>
+                        <strong>Price:</strong> 
+                        <span [ngStyle]="{ 'color': getPriceColor(selectedSymbol.name, selectedSymbol.price) }">
+                            ${{ selectedSymbol.price }}
+                        </span>
+                    </p>
+                    
                     <div class="popup-buttons">
                         <button class="cancel-btn" (click)="closePopup()">Cancel</button>
                         <button class="add-btn" (click)="addSymbol()">Add</button>
