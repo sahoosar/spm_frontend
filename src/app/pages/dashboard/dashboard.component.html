@@ -2,110 +2,130 @@
     <h2 class="text-center">Portfolio</h2>
 
     <!-- Tabs -->
-<div class="tabs">
-    <div class="tab" [class.active-tab]="selectedTab === 'Symbols List'" (click)="setTab('Symbols List')">
-        Symbols List
-    </div>
-    <div class="tab" [class.active-tab]="selectedTab === 'Positions'" (click)="setTab('Positions')">
-        Positions
-    </div>
-    <div class="tab" [class.active-tab]="selectedTab === 'Holdings'" (click)="setTab('Holdings')">
-        Holdings
-    </div>
-</div>
-
-<!-- Tab Content -->
-<div class="tab-content">
-    <!-- Symbols List -->
-    <div *ngIf="selectedTab === 'Symbols List'">
-      
-        <!-- Summary Section: All in One Row -->
-        <div class="summary-section">
-            <!-- 1st Section: Total Investment -->
-            <div class="info-box total-investment">
-                <p>Total Investment</p>
-                <h3>{{ totalInvestment | currency }}</h3>
-            </div>
-        
-            <!-- 2nd Section: Overall Profit -->
-            <div class="info-box overall-profit">
-                <p>Overall Profit</p>
-                <h3 class="profit-text">{{ overallProfit | currency }}</h3>
-            </div>
-        
-            <!-- 3rd Section: Overall Loss Percentage -->
-            <div class="info-box overall-loss">
-                <p>Overall Loss (%)</p>
-                <h3 class="loss-text">{{ overallLoss | percent }}</h3>
-            </div>
-        
-            <!-- 4th Section: Fancy Search Bar -->
-            <!-- Search Bar -->
-           <form [formGroup]="searchForm" class="search-box">
-             <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
-             <button type="button" class="search-btn" (click)="onSearch()">🔍</button>
-           </form>
-           <!-- Popup Overlay -->
-           <div class="popup-overlay" *ngIf="showPopup" (click)="closePopup()"></div>
-
-          <!-- Popup Window -->
-           <div class="popup" *ngIf="showPopup">
-              <p class="popup-title">Stock Information</p>
-    
-              <!-- If symbol exists, show details -->
-                <div *ngIf="selectedSymbol">
-                    <p><strong>Symbol:</strong> {{ selectedSymbol.name }}</p>
-                    <p>
-                        <strong>Price:</strong> 
-                        <span [ngStyle]="{ 'color': getPriceColor(selectedSymbol.name, selectedSymbol.price) }">
-                            ${{ selectedSymbol.price }}
-                        </span>
-                    </p>
-                    
-                    <div class="popup-buttons">
-                        <button class="cancel-btn" (click)="closePopup()">Cancel</button>
-                        <button class="add-btn" (click)="addSymbol()">Add</button>
-                    </div>
-                </div>
-
-                <!-- If symbol does not exist, show error -->
-                <div *ngIf="!selectedSymbol">
-                    <p>{{ popupMessage }}</p>
-                    <button class="cancel-btn" (click)="closePopup()">OK</button>
-                </div>
-           </div>
-
+    <div class="tabs">
+        <div class="tab" [class.active-tab]="selectedTab === 'Symbols List'" (click)="setTab('Symbols List')">
+            Symbols List
         </div>
-        <div class="table-container">
+        <div class="tab" [class.active-tab]="selectedTab === 'Positions'" (click)="setTab('Positions')">
+            Positions
+        </div>
+        <div class="tab" [class.active-tab]="selectedTab === 'Holdings'" (click)="setTab('Holdings')">
+            Holdings
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+        <!-- Symbols List -->
+        <div *ngIf="selectedTab === 'Symbols List'">
+        
+            <!-- Summary Section: All in One Row -->
+            <div class="summary-section">
+                <!-- 1st Section: Total Investment -->
+                <div class="info-box total-investment">
+                    <p>Total Investment</p>
+                    <h3>{{ totalInvestment | currency }}</h3>
+                </div>
+            
+                <!-- 2nd Section: Overall Profit -->
+                <div class="info-box overall-profit">
+                    <p>Overall Profit</p>
+                    <h3 class="profit-text">{{ overallProfit | currency }}</h3>
+                </div>
+            
+                <!-- 3rd Section: Overall Loss Percentage -->
+                <div class="info-box overall-loss">
+                    <p>Overall Loss (%)</p>
+                    <h3 class="loss-text">{{ overallLoss | percent }}</h3>
+                </div>
+            
+                <!-- 4th Section: Fancy Search Bar -->
+                <!-- Search Bar -->
+                <form [formGroup]="searchForm" class="search-box">
+                    <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
+                    <button type="button" class="search-btn" (click)="onSearch()">🔍</button>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Open</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Price</th>
+                            <th>Buy</th>
+                            <th>Sell</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let symbol of symbols">
+                            <td>{{ symbol.name }}</td>
+                            <td>{{ symbol.open }}</td>
+                            <td>{{ symbol.high }}</td>
+                            <td>{{ symbol.low }}</td>
+                            <td>{{ symbol.price }}</td>
+                            <td>
+                                <button class="buy-btn" (click)="openPopup('buy', symbol)">
+                                    <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" fill="green" />
+                                        <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="sell-btn" (click)="openPopup('sell', symbol)">
+                                    <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" fill="red" />
+                                        <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Positions Tab -->
+        <div *ngIf="selectedTab === 'Positions'">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Open</th>
-                        <th>High</th>
-                        <th>Low</th>
-                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Quantity</th>
+                        <th>Avg Price</th>
+                        <th>Current Price</th>
+                        <th>Profit/Loss</th>
                         <th>Buy</th>
                         <th>Sell</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let symbol of symbols">
-                        <td>{{ symbol.name }}</td>
-                        <td>{{ symbol.open }}</td>
-                        <td>{{ symbol.high }}</td>
-                        <td>{{ symbol.low }}</td>
-                        <td>{{ symbol.price }}</td>
+                    <tr *ngFor="let position of positions">
+                        <td>{{ position.stock }}</td>
+                        <td>{{ position.quantity }}</td>
+                        <td>{{ position.avgPrice }}</td>
+                        <td>{{ position.currentPrice }}</td>
+                        <td [ngClass]="{ 'profit': position.profitLoss > 0, 'loss': position.profitLoss < 0 }">
+                            {{ position.profitLoss | currency }}
+                        </td>
+                        
+                        <!-- Buy Button (Green Plus Icon) -->
                         <td>
-                            <button class="buy-btn" (click)="onBuy(symbol)">
+                            <button class="buy-btn" (click)="openPopup('buy', position)">
                                 <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
                                     <circle cx="12" cy="12" r="10" fill="green" />
                                     <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
                             </button>
                         </td>
+        
+                        <!-- Sell Button (Red Minus Icon) -->
                         <td>
-                            <button class="sell-btn" (click)="onSell(symbol)">
+                            <button class="sell-btn" (click)="openPopup('sell', position)">
                                 <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
                                     <circle cx="12" cy="12" r="10" fill="red" />
                                     <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -116,99 +136,95 @@
                 </tbody>
             </table>
         </div>
-    </div>
 
-    <!-- Positions Tab -->
-    <div *ngIf="selectedTab === 'Positions'">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Stock</th>
-                    <th>Quantity</th>
-                    <th>Avg Price</th>
-                    <th>Current Price</th>
-                    <th>Profit/Loss</th>
-                    <th>Buy</th>
-                    <th>Sell</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let position of positions">
-                    <td>{{ position.stock }}</td>
-                    <td>{{ position.quantity }}</td>
-                    <td>{{ position.avgPrice }}</td>
-                    <td>{{ position.currentPrice }}</td>
-                    <td [ngClass]="{ 'profit': position.profitLoss > 0, 'loss': position.profitLoss < 0 }">
-                        {{ position.profitLoss | currency }}
-                    </td>
-                    
-                    <!-- Buy Button (Green Plus Icon) -->
+        <!-- Holdings Tab -->
+        <div *ngIf="selectedTab === 'Holdings'">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Quantity</th>
+                        <th>Value</th>
+                        <th>Change</th>
+                        <th>Buy</th>
+                        <th>Sell</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let holding of holdings">
+                        <td>{{ holding.asset }}</td>
+                        <td>{{ holding.quantity }}</td>
+                        <td>{{ holding.value | currency }}</td>
+                        <td [ngClass]="{ 'profit': holding.change > 0, 'loss': holding.change < 0 }">
+                            {{ holding.change | percent }}
+                        </td>
+                        <!-- Buy Button (Green Plus Icon) -->
                     <td>
-                        <button class="buy-btn" (click)="onBuyPosition(position)">
+                        <button class="buy-btn" (click)="openPopup('buy', holding)">
                             <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="10" fill="green" />
                                 <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </button>
                     </td>
-    
                     <!-- Sell Button (Red Minus Icon) -->
                     <td>
-                        <button class="sell-btn" (click)="onSellPosition(position)">
+                        <button class="sell-btn" (click)="openPopup('sell', holding)">
                             <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="10" fill="red" />
                                 <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </button>
                     </td>
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+    
+    <!-- Single Common Popup for Search, Buy, and Sell -->
+    <div class="popup-overlay" *ngIf="showPopup" (click)="closePopup()"></div>
+    
+    <div class="popup" *ngIf="showPopup">
+        <p class="popup-title">{{ popupTitle }}</p>
 
-    <!-- Holdings Tab -->
-    <div *ngIf="selectedTab === 'Holdings'">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Asset</th>
-                    <th>Quantity</th>
-                    <th>Value</th>
-                    <th>Change</th>
-                    <th>Buy</th>
-                    <th>Sell</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let holding of holdings">
-                    <td>{{ holding.asset }}</td>
-                    <td>{{ holding.quantity }}</td>
-                    <td>{{ holding.value | currency }}</td>
-                    <td [ngClass]="{ 'profit': holding.change > 0, 'loss': holding.change < 0 }">
-                        {{ holding.change | percent }}
-                    </td>
-                    <!-- Buy Button (Green Plus Icon) -->
-                <td>
-                    <button class="buy-btn" (click)="onBuyHolding(holding)">
-                        <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="green" />
-                            <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                </td>
-                <!-- Sell Button (Red Minus Icon) -->
-                <td>
-                    <button class="sell-btn" (click)="onSellHolding(holding)">
-                        <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="red" />
-                            <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Search Popup -->
+        <div *ngIf="transactionType === 'search'">
+            <p *ngIf="selectedSymbol; else noSymbol">
+                <strong>Symbol:</strong> {{ selectedSymbol?.name }}
+            </p>
+            <p *ngIf="selectedSymbol">
+                <strong>Price:</strong> ${{ selectedSymbol?.price }}
+            </p>
+        
+            <!-- Error message if symbol is NOT found -->
+            <ng-template #noSymbol>
+                <p class="error-message">{{ popupMessage }}</p>
+            </ng-template>
+        
+            <div class="popup-buttons">
+                <button class="cancel-btn" (click)="closePopup()">Cancel</button>
+                <button class="add-btn" *ngIf="selectedSymbol" (click)="addSymbol()">Add</button>
+            </div>
+        </div>
+
+        <!-- Buy/Sell Popup -->
+        <div *ngIf="transactionType === 'buy' || transactionType === 'sell'">
+            <p><strong>Symbol:</strong> {{ selectedSymbol?.name }}</p>
+            <p><strong>Price:</strong> ${{ selectedSymbol?.price }}</p>
+            <p *ngIf="transactionType === 'sell'"><strong>Available Shares:</strong> {{ selectedSymbol?.quantity }}</p>
+
+            <form [formGroup]="tradeForm">
+                <label>Enter Quantity:</label>
+                <input type="number" formControlName="quantity" min="1" />
+            </form>
+
+            <p class="error-message" *ngIf="popupMessage">{{ popupMessage }}</p>
+
+            <div class="popup-buttons">
+                <button class="cancel-btn" (click)="closePopup()">Cancel</button>
+                <button class="execute-btn" (click)="executeTrade()">Execute</button>
+            </div>
+        </div>
     </div>
-</div>
-   
 </div>
