@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { StockService } from 'src/app/services/stock.service';
+//import { Stock } from 'src/app/models/stock.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +11,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({});
   tradeForm: FormGroup  = new FormGroup({});
-
   selectedTab: string = 'Symbols List'; // Default Tab
 
   showPopup = false;
@@ -75,7 +76,7 @@ export class DashboardComponent implements OnInit {
         this.tradeForm.patchValue({ quantity: 1 });
     }
 
-    // ✅ Ensure popup message is retained
+    // Ensure popup message is retained
     this.showPopup = true;
 }
 
@@ -83,15 +84,15 @@ export class DashboardComponent implements OnInit {
   onSearch() {
     const searchSymbol = this.searchForm.value.stockSymbol.trim().toUpperCase();
 
-    // ✅ Reset popup state
+    // Reset popup state
     this.selectedSymbol = null;
     this.popupTitle = 'Search Symbol';
     this.transactionType = 'search';
 
     if (!searchSymbol) {
-        // ✅ Set error message for empty input
+        // Set error message for empty input
         this.popupMessage = '⚠️ Please enter a symbol to search.';
-        this.showPopup = true; // ✅ Open popup to display message
+        this.showPopup = true; 
         return;
     }
 
@@ -99,12 +100,12 @@ export class DashboardComponent implements OnInit {
 
     if (foundSymbol) {
         this.selectedSymbol = foundSymbol;
-        this.popupMessage = ''; // ✅ Clear any previous message
+        this.popupMessage = ''; 
     } else {
         this.popupMessage = `❌ Symbol "${searchSymbol}" does not exist.`;
     }
 
-    this.showPopup = true; // ✅ Always show the popup
+    this.showPopup = true; //  Always show the popup
 }
 
 
@@ -139,12 +140,12 @@ export class DashboardComponent implements OnInit {
 
   // Close Popup
   closePopup() {
-    this.showPopup = false; // ✅ Hide popup
-    this.selectedSymbol = null; // ✅ Reset symbol data
-    this.transactionType = null; // ✅ Reset action type
-    this.popupTitle = ''; // ✅ Reset title
-    this.popupMessage = ''; // ✅ Clear any error messages
-    this.tradeForm.reset({ quantity: 1 }); // ✅ Reset trade input
+    this.showPopup = false; //  Hide popup
+    this.selectedSymbol = null; //  Reset symbol data
+    this.transactionType = null; // Reset action type
+    this.popupTitle = ''; //  Reset title
+    this.popupMessage = ''; // Clear any error messages
+    this.tradeForm.reset({ quantity: 1 }); // Reset trade input
 }
 
   previousPrices: { [key: string]: number } = {}; // Store previous prices

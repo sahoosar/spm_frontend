@@ -167,64 +167,95 @@
     min-width: 180px; /* Ensure equal width */
 }
 
+/* Search Section: Two-Column Layout */
+.search-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+/* Left Section (Text) */
+.search-left {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.search-left h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.search-left p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Right Section (Search Bar) */
+.search-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* Fancy Search Box */
 .search-box {
-    flex: 2;
     display: flex;
     align-items: center;
     background: white;
     border: 2px solid #007bff;
     padding: 10px;
-    border-radius: 25px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: 0.3s;
-    min-width: 300px; /* Ensure the search bar doesn't take too much space */
+    border-radius: 30px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
 }
 
-/* Search Input */
 .search-box input {
     flex-grow: 1;
     border: none;
     outline: none;
     font-size: 16px;
     padding: 8px;
+    border-radius: 20px;
 }
 
-/* Search Button */
 .search-box .search-btn {
     background: #007bff;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 10px 14px;
     border-radius: 50%;
     cursor: pointer;
     transition: 0.3s;
 }
 
-/* Search Button Hover */
 .search-box .search-btn:hover {
     background: #0056b3;
 }
 
 /* Responsive Fix */
-@media (max-width: 1024px) {
-    .summary-section {
-        flex-wrap: wrap;
-        justify-content: center;
+@media (max-width: 768px) {
+    .search-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
-    .info-box {
-        flex: none;
-        width: 30%;
+    .search-left {
+        padding-right: 0;
+        margin-bottom: 10px;
     }
-    .search-box {
-        flex: none;
+    .search-right {
         width: 100%;
-        margin-top: 10px;
     }
 }
 
 /* Align Summary Section in One Row */
-
 /* Summary Section: Reduce Height & Move Closer */
 /* Summary Section: Reduce Height & Move Closer */
 .summary-section {

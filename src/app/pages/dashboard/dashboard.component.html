@@ -20,31 +20,20 @@
         <div *ngIf="selectedTab === 'Symbols List'">
         
             <!-- Summary Section: All in One Row -->
-            <div class="summary-section">
-                <!-- 1st Section: Total Investment -->
-                <div class="info-box total-investment">
-                    <p>Total Investment</p>
-                    <h3>{{ totalInvestment | currency }}</h3>
+            <div class="search-section">
+                <!-- Left Section (Fancy Heading or Summary) -->
+                <div class="search-left">
+                    <h3>Stock Lookup</h3>
+                    <p>Enter a stock symbol to get the latest price of stock.</p>
                 </div>
             
-                <!-- 2nd Section: Overall Profit -->
-                <div class="info-box overall-profit">
-                    <p>Overall Profit</p>
-                    <h3 class="profit-text">{{ overallProfit | currency }}</h3>
+                <!-- Right Section (Fancy Search Bar) -->
+                <div class="search-right">
+                    <form [formGroup]="searchForm" class="search-box">
+                        <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
+                        <button type="button" class="search-btn" (click)="onSearch()">🔍</button>
+                    </form>
                 </div>
-            
-                <!-- 3rd Section: Overall Loss Percentage -->
-                <div class="info-box overall-loss">
-                    <p>Overall Loss (%)</p>
-                    <h3 class="loss-text">{{ overallLoss | percent }}</h3>
-                </div>
-            
-                <!-- 4th Section: Fancy Search Bar -->
-                <!-- Search Bar -->
-                <form [formGroup]="searchForm" class="search-box">
-                    <input type="text" formControlName="stockSymbol" placeholder="🔍 Enter Symbol" />
-                    <button type="button" class="search-btn" (click)="onSearch()">🔍</button>
-                </form>
             </div>
 
             <div class="table-container">
@@ -91,6 +80,26 @@
 
         <!-- Positions Tab -->
         <div *ngIf="selectedTab === 'Positions'">
+             <!-- Summary Section: All in One Row -->
+             <div class="summary-section">
+                <!-- 1st Section: Today's Investment -->
+                <div class="info-box total-investment">
+                    <p>Total Investment</p>
+                    <h3>{{ totalInvestment | currency }}</h3>
+                </div>
+            
+                <!-- 2nd Section: ToDay's Profit -->
+                <div class="info-box overall-profit">
+                    <p>Today's Profit</p>
+                    <h3 class="profit-text">{{ overallProfit | currency }}</h3>
+                </div>
+            
+                <!-- 3rd Section: Overall Days Loss Percentage -->
+                <div class="info-box overall-loss">
+                    <p>Today's Loss (%)</p>
+                    <h3 class="loss-text">{{ overallLoss | percent }}</h3>
+                </div>
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -139,6 +148,26 @@
 
         <!-- Holdings Tab -->
         <div *ngIf="selectedTab === 'Holdings'">
+             <!-- Summary Section: All in One Row -->
+             <div class="summary-section">
+                <!-- 1st Section: Total Investment -->
+                <div class="info-box total-investment">
+                    <p>Total Investment</p>
+                    <h3>{{ totalInvestment | currency }}</h3>
+                </div>
+            
+                <!-- 2nd Section: Overall Profit -->
+                <div class="info-box overall-profit">
+                    <p>Overall Profit</p>
+                    <h3 class="profit-text">{{ overallProfit | currency }}</h3>
+                </div>
+            
+                <!-- 3rd Section: Overall Loss Percentage -->
+                <div class="info-box overall-loss">
+                    <p>Overall Loss (%)</p>
+                    <h3 class="loss-text">{{ overallLoss | percent }}</h3>
+                </div>
+            </div>
             <table class="table">
                 <thead>
                     <tr>
