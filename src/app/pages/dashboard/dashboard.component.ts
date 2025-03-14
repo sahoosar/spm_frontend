@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { StockService } from 'src/app/services/stock.service';
 //import { Stock } from 'src/app/models/stock.model';
+import { BehaviorSubject,Observable } from 'rxjs';
+import { take,tap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+
+import { StockPopupComponent } from 'src/app/stock-popup/stock-popup.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +15,13 @@ import { StockService } from 'src/app/services/stock.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  userId = 'SPM_873127';
+  
+  searchResult: any = null;
+  private stockListSubject = new BehaviorSubject<any[]>([]);
+  stockList$ = this.stockListSubject.asObservable();
+
+  
   searchForm: FormGroup = new FormGroup({});
   tradeForm: FormGroup  = new FormGroup({});
   selectedTab: string = 'Symbols List'; // Default Tab
@@ -24,16 +37,7 @@ export class DashboardComponent implements OnInit {
   overallProfit = 4500; // Example profit amount
   overallLoss = 0.05; // 5% loss
 
-// Example symbol data
-  symbols_popup = [
-    { name: 'AAPL', price: 152 },
-    { name: 'TSLA', price: 710 },
-    { name: 'GOOGL', price: 2800 }
-  ];
-  symbols = [
-    { name: 'AAPL', open: 150, high: 155, low: 148, price: 152, quantity: 10 },
-    { name: 'TSLA', open: 700, high: 720, low: 690, price: 710, quantity: 5 },
-  ];
+
 
   positions = [
     { stock: 'AAPL', quantity: 10, avgPrice: 150, currentPrice: 155, profitLoss: 50 },
@@ -44,41 +48,63 @@ export class DashboardComponent implements OnInit {
     { asset: 'AAPL', quantity: 20, value: 3000, change: 0.05 },
     { asset: 'MSFT', quantity: 15, value: 2500, change: -0.02 },
   ];
+// Field Declaration Finish
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,private stockService: StockService,private dialog: MatDialog) {}
 
   ngOnInit() {
+    
+      this.loadStockList();
+    
     this.searchForm = this.fb.group({
       stockSymbol: ['']
     });
 
     this.tradeForm = this.fb.group({
+      stockName: '',
       quantity: [1] // Default buy/sell quantity
     });
   }
-
+  // ✅ Fetch user's stock list from backend
+  loadStockList(): void {
+    this.stockService.getUserStockList(this.userId).subscribe(
+      (stocks) => {
+        this.stockListSubject.next(stocks);
+      },
+      (error) => {
+        console.error('Error loading stock list:', error);
+      }
+    );
+  }
   setTab(tabName: string) {
     this.selectedTab = tabName;
   }
 
   // Open Popup for Search, Buy, or Sell
-  openPopup(type: 'search' | 'buy' | 'sell', symbol?: any) {
-    this.transactionType = type;
-    this.selectedSymbol = symbol || null;
-    
-    if (type === 'search') {
-        this.popupTitle = 'Search Symbol';
-    } else if (type === 'buy') {
-        this.popupTitle = `Buy ${symbol.name}`;
-        this.tradeForm.patchValue({ quantity: 1 });
-    } else {
-        this.popupTitle = `Sell ${symbol.name}`;
-        this.tradeForm.patchValue({ quantity: 1 });
-    }
+   openPopup(type: 'search' | 'buy' | 'sell', symbol?: any) {
+    this.stockList$.subscribe((stocks) => {
+      const stock = stocks.find(s => s.stockSymbol === symbol.stockSymbol);
+      if (stock) {
+        this.transactionType = type;
+        this.selectedSymbol = stock;
+      } else {
+        console.error('Stock not found:', symbol);
+      }
+    });
+    if (type === 'buy') {
+      this.popupTitle = `Buy ${symbol.stockSymbol}`;
+      this.tradeForm.patchValue({ quantity: 2 ,stockName:symbol.stockName});
+  } else {
+      this.popupTitle = `Sell ${symbol.stockSymbol}`;
+      this.tradeForm.patchValue({ quantity: 1 ,stockName:symbol.stockName});
+  }
 
-    // Ensure popup message is retained
-    this.showPopup = true;
-}
+  // Ensure popup message is retained
+  this.showPopup = true;
+} 
+
+   
+   
 
   // Search for Symbol
   onSearch() {
@@ -95,19 +121,37 @@ export class DashboardComponent implements OnInit {
         this.showPopup = true; 
         return;
     }
-
-    const foundSymbol = this.symbols_popup.find(s => s.name === searchSymbol);
-
-    if (foundSymbol) {
-        this.selectedSymbol = foundSymbol;
-        this.popupMessage = ''; 
-    } else {
-        this.popupMessage = `❌ Symbol "${searchSymbol}" does not exist.`;
-    }
-
-    this.showPopup = true; //  Always show the popup
+    this.stockService.searchSymbols(searchSymbol).pipe(
+      tap(data => {
+        if (data.stockSymbol === searchSymbol) {  
+                  this.openStockPopup(data);
+        } else {
+          this.showErrorPopup('No such symbol found! Please try again.');
+        }
+      })
+    ).subscribe();
+      
+  
+}
+showErrorPopup(message: string): void {
+  this.dialog.open(StockPopupComponent, {
+    width: '400px',
+    data: { error: message }
+  });
 }
 
+openStockPopup(stock: any): void {
+  const dialogRef = this.dialog.open(StockPopupComponent, {
+    width: '400px',
+    data: stock
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result?.action === 'add') {
+      this.loadStockList(); // Refresh stock list
+    } 
+  });
+}
 
   // Add symbol to portfolio (Mocked Backend Call)
   addSymbol() {
@@ -145,7 +189,7 @@ export class DashboardComponent implements OnInit {
     this.transactionType = null; // Reset action type
     this.popupTitle = ''; //  Reset title
     this.popupMessage = ''; // Clear any error messages
-    this.tradeForm.reset({ quantity: 1 }); // Reset trade input
+    this.tradeForm.reset({ quantity: 1 ,stockName:''}); // Reset trade input
 }
 
   previousPrices: { [key: string]: number } = {}; // Store previous prices
@@ -187,4 +231,27 @@ onSellHolding(holding:any){
   // Add your logic for selling the stock position
 }
 
+
+buyStock(stock: any): void {
+  console.log('Buying stock:', stock.symbol);
+  alert(`Bought stock: ${stock.symbol} at $${stock.price}`);
+}
+
+// ✅ Sell Stock Action
+sellStock(stock: any): void {
+  console.log('Selling stock:', stock.symbol);
+  alert(`Sold stock: ${stock.symbol} at $${stock.price}`);
+}
+
+// ✅ Remove stock from the user's stock list
+removeFromStockList(stockId: number): void {
+  this.stockService.removeStockFromUser(stockId).subscribe(
+    () => {
+      this.loadStockList(); // Refresh stock list after removal
+    },
+    (error) => {
+      console.error('Error removing stock:', error);
+    }
+  );
+}
 }

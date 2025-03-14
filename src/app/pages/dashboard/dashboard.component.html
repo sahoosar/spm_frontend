@@ -35,8 +35,9 @@
                     </form>
                 </div>
             </div>
-
+            
             <div class="table-container">
+                
                 <table class="table">
                     <thead>
                         <tr>
@@ -47,17 +48,18 @@
                             <th>Price</th>
                             <th>Buy</th>
                             <th>Sell</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let symbol of symbols">
-                            <td>{{ symbol.name }}</td>
-                            <td>{{ symbol.open }}</td>
-                            <td>{{ symbol.high }}</td>
-                            <td>{{ symbol.low }}</td>
-                            <td>{{ symbol.price }}</td>
+                        <tr *ngFor="let stock of stockList$ | async">
+                            <td>{{ stock.stockSymbol }}</td>
+                            <td>{{ stock.openPrice }}</td>
+                            <td>{{ stock.highPrice }}</td>
+                            <td>{{ stock.lowPrice }}</td>
+                            <td>{{ stock.currentPrice }}</td>
                             <td>
-                                <button class="buy-btn" (click)="openPopup('buy', symbol)">
+                                <button class="buy-btn" (click)="openPopup('buy', stock)">
                                     <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
                                         <circle cx="12" cy="12" r="10" fill="green" />
                                         <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -65,12 +67,18 @@
                                 </button>
                             </td>
                             <td>
-                                <button class="sell-btn" (click)="openPopup('sell', symbol)">
+                                <button class="sell-btn" (click)="openPopup('sell', stock)">
                                     <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
                                         <circle cx="12" cy="12" r="10" fill="red" />
                                         <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
                                     </svg>
                                 </button>
+                                
+                            </td>
+                            <td>
+                                <button class="delete-button" (click)="removeFromStockList(stock.stockSymbol)">
+                                    🗑️
+                                  </button>
                             </td>
                         </tr>
                     </tbody>

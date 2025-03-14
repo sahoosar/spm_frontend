@@ -9,13 +9,17 @@ import { CookieService } from 'ngx-cookie-service';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StockPopupComponent } from './stock-popup/stock-popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    StockPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +27,10 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     AppRoutingModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    NoopAnimationsModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   
   providers: [CookieService
