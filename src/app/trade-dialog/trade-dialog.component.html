@@ -1,0 +1,16 @@
+<p>trade-dialog works!</p>
+<h2 mat-dialog-title>Trade Stock</h2>
+<mat-dialog-content class="dialog-content">
+  <p><strong>Symbol:</strong> {{ data.symbol }}</p>
+  <p><strong>Price:</strong> {{ data.price | currency }}</p>
+  
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Quantity</mat-label>
+    <input matInput type="number" [(ngModel)]="quantity" min="1">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions >
+  <button mat-flat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onExecute()">Execute</button>
+</mat-dialog-actions>

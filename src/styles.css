@@ -2,3 +2,25 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-tab-group {
+    background-color: #f5f5f5 !important;
+}
+
+.mat-tab-label-active {
+    background-color: #1976d2 !important;
+    color: white !important;
+    border-radius: 5px;
+}
+
+.mat-tab-label {
+    background-color: #e0e0e0 !important;
+    color: black !important;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 10px;
+}
+
+.mat-tab-label:hover {
+    background-color: #1565c0 !important;
+    color: white !important;
+}

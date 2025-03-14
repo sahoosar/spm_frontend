@@ -8,8 +8,10 @@ import { environment } from 'src/environments/environment';
 })
 export class StockService {
   private baseUrl = environment.apiEndpoints.stockListBaseUrl // Replace with actual backend URL
-  private baseUrlStockList = environment.apiEndpoints.stockList_users; 
+  private baseUrlStockList = environment.apiEndpoints.stockListUsers; 
   private alphaVntgUrl = environment.apiEndpoints.alphaVntgUrl;
+
+
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
@@ -48,5 +50,14 @@ export class StockService {
   // Remove stock from user's stock list
   removeStockFromUser(stockId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${stockId}`, { headers: this.getAuthHeaders() });
+  }
+
+  // get user holdings
+  getUserHoldings(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiEndpoints.userHoldingsUri}${userId}`, { headers: this.getAuthHeaders() });
+  }
+
+  addStockToHoldings(stock: any): Observable<any> {
+    return this.http.post(`${environment.apiEndpoints.portfolioUrl}`, stock, { headers: this.getAuthHeaders() });
   }
 }

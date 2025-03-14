@@ -17,7 +17,7 @@ export interface LoginPayload {
 export class AuthService {
     // Update this URL to match your backend authentication endpoint.
     private authUrl = environment.apiEndpoints.login;
-
+    private registerUrl = environment.apiEndpoints.register;
     constructor(private http: HttpClient) {}
 
     login(payload: LoginPayload): Observable<string> {
@@ -31,6 +31,9 @@ export class AuthService {
     }),
         catchError(this.handleError)
       );
+  }
+  registerUser(userData: any): Observable<any> {
+    return this.http.post(this.registerUrl, userData);
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -53,5 +56,14 @@ export class AuthService {
 
  getToken(): string | null {
     return localStorage.getItem('access_token');
+  }
+
+  getLoggedInUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
+  saveUserId(userId: string): void {
+    localStorage
+    .setItem('userId', userId);   
   }
 }

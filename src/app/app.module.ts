@@ -13,13 +13,23 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StockPopupComponent } from './stock-popup/stock-popup.component';
-
+import { HoldingsComponent } from './pages/holdings/holdings.component';
+import { StocklistComponent } from './pages/stocklist/stocklist.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TradeDialogComponent } from './trade-dialog/trade-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { RegisterComponent } from './pages/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    StockPopupComponent
+    StockPopupComponent,
+    HoldingsComponent,
+    StocklistComponent,
+    TradeDialogComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -30,11 +40,14 @@ import { StockPopupComponent } from './stock-popup/stock-popup.component';
     FormsModule,
     NoopAnimationsModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTabsModule
   ],
   
-  providers: [CookieService
-  ],
-  bootstrap: [AppComponent]
+  providers: [CookieService],
+  bootstrap: [AppComponent],
+  entryComponents: [TradeDialogComponent] // Required for dynamically loaded dialogs
 })
 export class AppModule { }

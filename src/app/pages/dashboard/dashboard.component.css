@@ -478,3 +478,20 @@
     background: #0056b3;
 }
 
+
+
+
+/* Non-active tabs */
+.mat-tab-label {
+    background-color: #f5bfbf !important; /* Light gray */
+    color: black !important; /* Dark text */
+    border-radius: 5px; /* Rounded edges */
+    margin: 2px;
+    padding: 10px;
+}
+
+/* Hover effect */
+.mat-tab-label:hover {
+    background-color: #1565c0 !important;
+    color: white !important;
+}

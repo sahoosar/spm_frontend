@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AuthService, LoginPayload } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +16,7 @@ export class LoginComponent {
   userId: string = '';
   password: string = '';
   errorMessage: string = '';
-  constructor(private http: HttpClient, private cookieService: CookieService,
+  constructor(private http: HttpClient,
               private authService: AuthService, private router: Router, private fb: FormBuilder) {
 
                 this.loginForm = this.fb.group({
@@ -38,6 +37,7 @@ export class LoginComponent {
       next: token => {
         if (token) {
           this.authService.saveToken(token.trim());
+          this.authService.saveUserId(credentials.userId.trim());
           this.router.navigate(['/dashboard']).then(success => console.log('Navigation success:', success))
           .catch(err => console.error('Navigation error:', err));
         } else {
