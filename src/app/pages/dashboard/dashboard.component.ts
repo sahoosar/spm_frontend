@@ -38,12 +38,6 @@ export class DashboardComponent implements OnInit {
   overallLoss = 0.05; // 5% loss
 
 
-
-  positions = [
-    { stock: 'AAPL', quantity: 10, avgPrice: 150, currentPrice: 155, profitLoss: 50 },
-    { stock: 'TSLA', quantity: 5, avgPrice: 700, currentPrice: 680, profitLoss: -100 },
-  ];
-
   holdings = [
     { asset: 'AAPL', quantity: 20, value: 3000, change: 0.05 },
     { asset: 'MSFT', quantity: 15, value: 2500, change: -0.02 },

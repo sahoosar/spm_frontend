@@ -6,9 +6,7 @@
         <div class="tab" [class.active-tab]="selectedTab === 'Symbols List'" (click)="setTab('Symbols List')">
             Symbols List
         </div>
-        <div class="tab" [class.active-tab]="selectedTab === 'Positions'" (click)="setTab('Positions')">
-            Positions
-        </div>
+
         <div class="tab" [class.active-tab]="selectedTab === 'Holdings'" (click)="setTab('Holdings')">
             Holdings
         </div>
@@ -84,74 +82,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <!-- Positions Tab -->
-        <div *ngIf="selectedTab === 'Positions'">
-             <!-- Summary Section: All in One Row -->
-             <div class="summary-section">
-                <!-- 1st Section: Today's Investment -->
-                <div class="info-box total-investment">
-                    <p>Total Investment</p>
-                    <h3>{{ totalInvestment | currency }}</h3>
-                </div>
-            
-                <!-- 2nd Section: ToDay's Profit -->
-                <div class="info-box overall-profit">
-                    <p>Today's Profit</p>
-                    <h3 class="profit-text">{{ overallProfit | currency }}</h3>
-                </div>
-            
-                <!-- 3rd Section: Overall Days Loss Percentage -->
-                <div class="info-box overall-loss">
-                    <p>Today's Loss (%)</p>
-                    <h3 class="loss-text">{{ overallLoss | percent }}</h3>
-                </div>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Stock</th>
-                        <th>Quantity</th>
-                        <th>Avg Price</th>
-                        <th>Current Price</th>
-                        <th>Profit/Loss</th>
-                        <th>Buy</th>
-                        <th>Sell</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let position of positions">
-                        <td>{{ position.stock }}</td>
-                        <td>{{ position.quantity }}</td>
-                        <td>{{ position.avgPrice }}</td>
-                        <td>{{ position.currentPrice }}</td>
-                        <td [ngClass]="{ 'profit': position.profitLoss > 0, 'loss': position.profitLoss < 0 }">
-                            {{ position.profitLoss | currency }}
-                        </td>
-                        
-                        <!-- Buy Button (Green Plus Icon) -->
-                        <td>
-                            <button class="buy-btn" (click)="openPopup('buy', position)">
-                                <svg class="buy-icon" width="26" height="26" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" fill="green" />
-                                    <path d="M12 7v10M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                        </td>
-        
-                        <!-- Sell Button (Red Minus Icon) -->
-                        <td>
-                            <button class="sell-btn" (click)="openPopup('sell', position)">
-                                <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" fill="red" />
-                                    <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
 
         <!-- Holdings Tab -->

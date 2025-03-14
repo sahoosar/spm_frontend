@@ -29,8 +29,8 @@ export class LoginComponent {
   onSubmit() {
 
     const credentials = {
-      userId: this.loginForm.get('userId')?.value,
-      password: this.loginForm.get('password')?.value
+      userId   : this.loginForm.get('userId')?.value,
+      password : this.loginForm.get('password')?.value
     };
     localStorage.setItem('userId', this.loginForm.get('userId')?.value);
 

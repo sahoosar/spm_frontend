@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiEndpoints: {
+    login        : 'http://localhost:8080/auth/login',
+
+    stockListBaseUrl     : 'http://localhost:8080/api/stocks',
+    stockList_users    : 'http://localhost:8080/api/stocks/users',
+   
+    // alpha vantage api 
+    alphaVntgUrl : 'http://localhost:8080/av/stock',
+
+    // portfolio api to add or sell stock
+    portfolioUrl : 'http://localhost:8080/portfolio/stock'
+  }
 };
 
 /*
@@ -14,3 +26,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+// src/environments/environment.ts
