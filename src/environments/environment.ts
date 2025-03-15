@@ -1,17 +1,18 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'http://localhost:8080/api';
 
 export const environment = {
   production: false,
   apiEndpoints: {
     
     login        : `${baseUrl}/auth/login`,
-    register    : `${baseUrl}/users/register`,
+    register    : `${baseUrl}/user/register`,
+    tokenValidation : `${baseUrl}/auth/token`,
 
-    stockListBaseUrl     : `${baseUrl}/api/stocks`,
-    stockListUsers    : `${baseUrl}/api/stocks/users`,
+    stockListBaseUrl     : `${baseUrl}/stocksList`,
+    stockListUsers    : `${baseUrl}/stocksList/users`,
    
     // alpha vantage api 
     alphaVntgUrl : `${baseUrl}/av/stock`,

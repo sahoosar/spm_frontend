@@ -38,8 +38,9 @@ export class LoginComponent {
         if (token) {
           this.authService.saveToken(token.trim());
           this.authService.saveUserId(credentials.userId.trim());
-          this.router.navigate(['/dashboard']).then(success => console.log('Navigation success:', success))
-          .catch(err => console.error('Navigation error:', err));
+          this.router.navigate(['/dashboard']);
+          //.then(success => console.log('Navigation success:', success))
+          //.catch(err => console.error('Navigation error:', err));
         } else {
           console.error('Token is null or undefined');
         }

@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -19,7 +19,13 @@ export class AuthService {
     private authUrl = environment.apiEndpoints.login;
     private registerUrl = environment.apiEndpoints.register;
     constructor(private http: HttpClient) {}
-
+private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('access_token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json'
+    });
+  }
     login(payload: LoginPayload): Observable<string> {
       return this.http.post(this.authUrl, payload, {
         headers: { 'Content-Type': 'application/json' },

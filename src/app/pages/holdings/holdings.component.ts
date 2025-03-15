@@ -16,7 +16,6 @@ import { TradeDialogComponent } from 'src/app/trade-dialog/trade-dialog.componen
 })
 export class HoldingsComponent implements OnInit {
 
-  //userId = 'SPM_873127';
   private holdingsubject = new BehaviorSubject<any[]>([]);
   holdings$ = this.holdingsubject.asObservable();
   tradeForm: FormGroup  = new FormGroup({});

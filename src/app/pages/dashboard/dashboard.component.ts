@@ -1,7 +1,4 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { StockService } from 'src/app/services/stock.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { HoldingsComponent } from '../holdings/holdings.component';
 
@@ -13,7 +10,6 @@ import { HoldingsComponent } from '../holdings/holdings.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  userId = 'SPM_873127';
   
   @ViewChild('holdingsComponent') holdingsComponent!: HoldingsComponent;
 
@@ -24,7 +20,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  constructor(private fb: FormBuilder,private stockService: StockService,private dialog: MatDialog) {}
+  constructor() {}
 
   ngOnInit() {
     
