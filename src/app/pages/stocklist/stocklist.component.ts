@@ -104,7 +104,7 @@ openStockPopup(stock: any): void {
   }
 // ✅ Remove stock from the user's stock list
 removeFromStockList(stockId: number): void {
-  this.stockService.removeStockFromUser(stockId).subscribe(
+  this.stockService.removeStockFromList(stockId).subscribe(
     () => {
       this.loadStockList(); // Refresh stock list after removal
     },
