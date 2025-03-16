@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UserDailySummaryDto } from  'src/app/model/user-daily-summary.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +49,11 @@ export class StockService {
 
   addStockToHoldings(stock: any): Observable<any> {
     return this.http.post(`${environment.apiEndpoints.portfolioUrl}`, stock, { headers: this.getAuthHeaders() });
+  }
+
+  // get users daily summary
+  getUserDailySummary(userId: string): Observable<UserDailySummaryDto> {
+    return this.http.get<UserDailySummaryDto>(`${environment.apiEndpoints.userDailySummary}${userId}`, 
+      { headers: this.getAuthHeaders() });
   }
 }

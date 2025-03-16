@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { StockService } from 'src/app/services/stock.service';
-//import { Stock } from 'src/app/models/stock.model';
-import { BehaviorSubject,Observable } from 'rxjs';
-import { take,tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TradeDialogComponent } from '../../trade-dialog/trade-dialog.component';
 import { StockPopupComponent } from 'src/app/stock-popup/stock-popup.component';
@@ -18,15 +17,13 @@ export class StocklistComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private stockService: StockService,
     private dialog: MatDialog,
-  private auth: AuthService) {}
-  
-  //userId = 'SPM_873127';
+    private auth: AuthService) { }
 
   searchResult: any = null;
   private stockListSubject = new BehaviorSubject<any[]>([]);
   stockList$ = this.stockListSubject.asObservable();
   searchForm: FormGroup = new FormGroup({});
-  tradeForm: FormGroup  = new FormGroup({});
+  tradeForm: FormGroup = new FormGroup({});
 
   showPopup = false;
   popupTitle = '';
@@ -66,64 +63,64 @@ export class StocklistComponent implements OnInit {
     this.transactionType = 'search';
 
     if (!searchSymbol) {
-        // Set error message for empty input
-        this.popupMessage = '⚠️ Please enter a symbol to search.';
-        this.showPopup = true; 
-        return;
+      // Set error message for empty input
+      this.popupMessage = '⚠️ Please enter a symbol to search.';
+      this.showPopup = true;
+      return;
     }
     this.stockService.searchSymbols(searchSymbol).pipe(
       tap(data => {
-        if (data.stockSymbol === searchSymbol) {  
-                  this.openStockPopup(data);
+        if (data.stockSymbol === searchSymbol) {
+          this.openStockPopup(data);
         } else {
           this.showErrorPopup('No such symbol found! Please try again.');
         }
       })
     ).subscribe();
-      
-  
-}
-showErrorPopup(message: string): void {
-  this.dialog.open(StockPopupComponent, {
-    width: '400px',
-    data: { error: message }
-  });
-}
 
-openStockPopup(stock: any): void {
-  const dialogRef = this.dialog.open(StockPopupComponent, {
-    width: '400px',
-    data: stock
-  });
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result?.action === 'add') {
-      this.loadStockList(); // Refresh stock list
-    } 
-  });
   }
-// ✅ Remove stock from the user's stock list
-removeFromStockList(stockId: number): void {
-  this.stockService.removeStockFromList(stockId).subscribe(
-    () => {
-      this.loadStockList(); // Refresh stock list after removal
-    },
-    (error) => {
-      console.error('Error removing stock:', error);
-    }
-  );
-}
-openTradeDialog(stock: any, operation: 'buy' | 'sell'): void {
-  const dialogRef = this.dialog.open(TradeDialogComponent, {
-    width: '350px',
-    data: { symbol: stock.stockSymbol, price: stock.currentPrice, operation }
-  });
+  showErrorPopup(message: string): void {
+    this.dialog.open(StockPopupComponent, {
+      width: '400px',
+      data: { error: message }
+    });
+  }
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      console.log('Trade executed successfully!');
-    }
-  });
-}
+  openStockPopup(stock: any): void {
+    const dialogRef = this.dialog.open(StockPopupComponent, {
+      width: '400px',
+      data: stock
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.action === 'add') {
+        this.loadStockList(); // Refresh stock list
+      }
+    });
+  }
+  // Remove stock from the user's stock list
+  removeFromStockList(stockId: number): void {
+    this.stockService.removeStockFromList(stockId).subscribe(
+      () => {
+        this.loadStockList(); // Refresh stock list after removal
+      },
+      (error) => {
+        console.error('Error removing stock:', error);
+      }
+    );
+  }
+  openTradeDialog(stock: any, operation: 'buy' | 'sell'): void {
+    const dialogRef = this.dialog.open(TradeDialogComponent, {
+      width: '350px',
+      data: { symbol: stock.stockSymbol, price: stock.currentPrice, operation }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Trade executed successfully!');
+      }
+    });
+  }
 
 }

@@ -21,7 +21,9 @@ export const environment = {
     portfolioUrl : `${baseUrl}/portfolio/stock` ,
 
 
-    userHoldingsUri: `${baseUrl}/portfolio/user/`
+    userHoldingsUri: `${baseUrl}/portfolio/user/`,
+
+    userDailySummary: `${baseUrl}/portfolio/daily-summary/`
   }
 };
 

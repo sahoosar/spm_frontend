@@ -20,6 +20,9 @@ import { TradeDialogComponent } from './trade-dialog/trade-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RegisterComponent } from './pages/register/register.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +46,9 @@ import { RegisterComponent } from './pages/register/register.component';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTabsModule
+    MatTabsModule,
+    MatIconModule,  // <-- Import Material Icon Module
+    MatButtonModule
   ],
   
   providers: [CookieService],

@@ -24,3 +24,41 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: #1565c0 !important;
     color: white !important;
 }
+
+.sell-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sell-icon {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .sell-btn:hover .sell-icon {
+    transform: scale(1.1); /* Slight zoom effect */
+  }
+
+  .buy-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buy-icon {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .buy-btn:hover .buy-icon {
+    transform: scale(1.1); /* Slight zoom effect */
+  }

@@ -41,4 +41,30 @@
             </tr>
         </tbody>
     </table>
+    
 </div>
+<div class="investment-details">
+    <div class="holdings-item">
+  <mat-icon class="icon valuation-icon">monetization_on</mat-icon>
+  <span class="label">Total Investment:</span>
+  <span class="value">{{ userDailySummary?.totalInvested | currency }}</span>
+</div>
+
+<!-- Equity Investment -->
+<div class="holdings-item">
+  <mat-icon class="icon investment-icon">savings</mat-icon>
+  <span class="label">Equity Investment:</span>
+  <span class="value">{{ userDailySummary?.totalInvested | currency }}</span>
+</div>
+
+<!-- Profit/Loss Percentage -->
+<div class="holdings-item">
+  <mat-icon class="icon profit-icon">trending_up</mat-icon>
+  <span class="label">Profit/Loss %:</span>
+  <span class="value" 
+  [ngClass]="{'profit': profitLossPercentage > 0, 'loss': profitLossPercentage < 0}">
+  {{ profitLossPercentage | number:'1.2-2' }}%
+</span>
+</div>
+
+  </div>

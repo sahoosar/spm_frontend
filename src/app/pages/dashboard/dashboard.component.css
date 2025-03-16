@@ -1,497 +1,72 @@
-/* Container */
-.container {
-    max-width: 900px;
-    margin: 20px auto;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-}
-
-/* Fancy Search Box */
-.search-box {
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 2px solid #007bff;
-    padding: 10px;
-    border-radius: 5px;
-    transition: 0.3s;
-    margin-top: 15px;
-}
-
-.search-box input {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 8px;
-}
-
-.search-box .search-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.search-box .search-btn:hover {
-    background: #0056b3;
-}
-
-/* Tabs Container */
-/* Tabs Container */
-.tabs {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 3px solid #ddd;
-    background: #f8f9fa;
-}
-
-/* Individual Tab */
-.tab {
-    flex: 1;
-    padding: 14px 20px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-    background-color: #e9ecef;
-    transition: background-color 0.3s ease-in-out;
-}
-
-/* Hover Effect */
-.tab:hover {
-    background-color: #d6d8db;
-}
-
-/* Active Tab */
-.active-tab {
-    background-color: #007bff;
-    color: white;
-}
-
-/* Tab Content */
-.tab-content {
-    padding: 20px;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Table Styles */
-.table-container {
-    overflow-x: auto;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th, .table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-
-.profit {
-    color: green;
-}
-
-.loss {
-    color: red;
-}
-
-/* Style for Buy (+) and Sell (-) buttons */
-
-.buy-btn, .sell-btn {
-    all: unset;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    transition: transform 0.2s ease-in-out;
-}
-
-/* Fancy Green Plus Icon */
-.buy-icon {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.2s ease-in-out;
-}
-
-/* Fancy Red Minus Icon */
-.sell-icon {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.2s ease-in-out;
-}
-
-/* Hover Effect */
-.buy-btn:hover .buy-icon, .sell-btn:hover .sell-icon {
-    transform: scale(1.2);
-}
-
-
-/* Align Summary Section Below Tabs */
-/* Align Summary Section in One Row */
-.summary-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 5px; /* Space between tabs and summary */
-    flex-wrap: nowrap; /* Ensure everything stays in one row */
-}
-
-/* Info Boxes (Investment, Profit, Loss) */
-.info-box {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    min-width: 180px; /* Ensure equal width */
-}
-
-/* Search Section: Two-Column Layout */
-.search-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-}
-
-/* Left Section (Text) */
-.search-left {
-    flex: 1;
-    padding-right: 20px;
-}
-
-.search-left h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.search-left p {
-    font-size: 14px;
-    color: #666;
-}
-
-/* Right Section (Search Bar) */
-.search-right {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
-/* Fancy Search Box */
-.search-box {
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 2px solid #007bff;
-    padding: 10px;
-    border-radius: 30px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 350px;
-}
-
-.search-box input {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 8px;
-    border-radius: 20px;
-}
-
-.search-box .search-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.search-box .search-btn:hover {
-    background: #0056b3;
-}
-
-/* Responsive Fix */
-@media (max-width: 768px) {
-    .search-section {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .search-left {
-        padding-right: 0;
-        margin-bottom: 10px;
-    }
-    .search-right {
-        width: 100%;
-    }
-}
-
-/* Align Summary Section in One Row */
-/* Summary Section: Reduce Height & Move Closer */
-/* Summary Section: Reduce Height & Move Closer */
-.summary-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px; /* Reduce spacing */
-    padding: 4px 8px; /* Minimize padding */
-    background: #f9f9f9; /* Lighter background */
-    border-radius: 5px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
-    margin-top: 0px; /* Remove space between tabs & summary */
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Info Boxes: Reduce Height & Font Size */
-.info-box {
-    flex: 1;
-    text-align: center;
-    padding: 4px; /* Reduce padding */
-    background: #f3f3f3; /* Soft background */
-    border-radius: 4px;
-    font-size: 12px; /* Slightly smaller font */
-    font-weight: bold;
-    min-width: 120px;
-}
-
-/* Auto-Adjust Font Size for Numbers */
-.info-box h3 {
-    font-size: clamp(14px, 1.8vw, 20px); /* Auto adjusts based on screen size */
-    margin: 2px 0; /* Reduce spacing */
-}
-
-/* Profit Text */
-.profit-text {
-    color: green;
-}
-
-/* Loss Text */
-.loss-text {
-    color: red;
-}
-
-/* Fancy Search Box: Reduce Height */
-.search-box {
-    flex: 1.5;
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 1px solid #ccc; /* Lighter border */
-    padding: 4px; /* Reduce padding */
-    border-radius: 14px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
-    transition: 0.3s;
-    min-width: 200px;
-}
-
-/* Search Input */
-.search-box input {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    font-size: 14px; /* Adjust font size */
-    padding: 4px;
-}
-
-/* Search Button */
-.search-box .search-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 6px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-/* Search Button Hover */
-.search-box .search-btn:hover {
-    background: #0056b3;
-}
-
-/* Responsive Fix */
-@media (max-width: 1024px) {
-    .summary-section {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .info-box {
-        flex: none;
-        width: 28%;
-    }
-    .search-box {
-        flex: none;
-        width: 100%;
-        margin-top: 4px;
-    }
-}
-
-
-/* Responsive Layout */
-@media (max-width: 786px) {
-    .summary-section {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .info-box {
-        flex: none;
-        width: 30%;
-    }
-    .search-box {
-        flex: none;
-        width: 100%;
-        margin-top: 10px;
-    }
-}
-
-
-/* Responsive - Tabs Adjust for Smaller Screens */
-@media (max-width: 768px) {
-    .tabs {
-        flex-direction: column; /* Stack tabs in small screens */
-    }
-    .tab {
-        flex: none;
-        width: 100%;
-        font-size: 14px;
-        padding: 10px 15px;
-    }
-}
-
-/* Popup Overlay */
-.popup-overlay {
+.header-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    z-index: 10;
-}
-
-/* Popup Window */
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    z-index: 20;
-    width: 300px;
-}
-
-/* Popup Title */
-.popup-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Popup Buttons */
-.popup-buttons {
+    height: 40px; /* Small height */
+    background-color: #77B1D4; /* Blue color */
+    color: white; /* White text for contrast */
     display: flex;
-    justify-content: center; /* Center horizontally */
     align-items: center;
-    margin-top: 15px;
-    gap: 15px; /* Add spacing between buttons */
-}
-
-.cancel-btn, .add-btn {
-    padding: 6px 12px;
+    justify-content: space-between;
+    padding: 0 10px; /* Reduce padding */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  button {
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.cancel-btn {
-    background-color: #d3d3d3;
-    color: black;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 8px;
+    outline: none;
+  }
+  
+  mat-icon {
+    font-size: 20px; /* Adjust icon size */
+  }
+  
+  .logout-button {
+    background-color: transparent;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-.cancel-btn:hover {
-    background-color: #b0b0b0;
-}
+  }
+  
+  .power-icon {
+    font-size: 24px; /* Adjust size */
+    color: #e74c3c; /* Red color */
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .logout-button:hover .power-icon {
+    transform: scale(1.1); /* Slight zoom on hover */
+  }
 
-.execute-btn {
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #007bff;
     color: white;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 8px;
+    padding: 10px;
+    height: 40px;
+  }
+  
+  .refresh-button {
+    background: none;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.execute-btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-.add-btn {
-    background: #007bff;
+    outline: none;
+  }
+  
+  .refresh-icon {
+    font-size: 24px;
     color: white;
-}
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .refresh-button:hover .refresh-icon {
+    transform: rotate(180deg);
+  }
 
-.add-btn:hover {
-    background: #0056b3;
-}
-
-
-
-
-/* Non-active tabs */
-.mat-tab-label {
-    background-color: #f5bfbf !important; /* Light gray */
-    color: black !important; /* Dark text */
-    border-radius: 5px; /* Rounded edges */
-    margin: 2px;
-    padding: 10px;
-}
-
-/* Hover effect */
-.mat-tab-label:hover {
-    background-color: #1565c0 !important;
-    color: white !important;
-}
+  .welcome-text {
+    font-size: 24px; /* Set font size to 24px */
+    font-weight: bold;
+  }

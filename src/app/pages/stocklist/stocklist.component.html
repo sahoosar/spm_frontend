@@ -4,7 +4,6 @@
         <!-- Left Section (Fancy Heading or Summary) -->
         <div class="search-left">
             <h3>Stock Lookup</h3>
-            <p>Enter a stock symbol to get the latest price of stock.</p>
         </div>
     
         <!-- Right Section (Fancy Search Bar) -->
@@ -47,12 +46,12 @@
                         </button>
                     </td>
                     <td>
-                        <button class="sell-btn" (click)="openTradeDialog(stock, 'sell')">
+                       <button class="sell-btn" (click)="openTradeDialog(stock, 'sell')">
                             <svg class="sell-icon" width="26" height="26" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="10" fill="red" />
                                 <path d="M7 12h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
                             </svg>
-                        </button>
+                        </button> 
                     </td>
                     <td>
                         <button class="delete-button" (click)="removeFromStockList(stock.stockSymbol)">
@@ -62,4 +61,6 @@
                 </tr>
             </tbody>
         </table>
+
+       
     </div>
