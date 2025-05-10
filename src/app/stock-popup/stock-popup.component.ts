@@ -18,22 +18,22 @@ export class StockPopupComponent {
   ) {}
 
   ngOnInit(): void {
-    
 
-    // ✅ Check if stock already exists in user's stock list
-    if(this.stock.symbolName){  
+
+    // Check if stock already exists in user's stock list
+    if(this.stock.symbolName){
     this.stockService.getUserStockList( `${this.userId}`).subscribe(stockList => {
       this.stockExists = stockList.some(s => s.stockSymbol === this.stock.stockSymbol);
     });
   }
   }
 
-  // ✅ Close popup
+
   close(): void {
     this.dialogRef.close();
   }
 
-  // ✅ Add stock to list
+
   addToStockList(): void {
     const newStock = { ...this.stock, userId: this.userId };
 

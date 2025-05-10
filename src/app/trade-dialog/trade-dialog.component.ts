@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { StockService } from '../services/stock.service';
+import { AuthService } from '../services/auth.service';
 
 interface TradeData {
   symbol: string;
@@ -22,7 +23,8 @@ export class TradeDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<TradeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TradeData,
-    private stockService: StockService
+    private stockService: StockService,
+    private authService: AuthService,
   ) {}
 
   onCancel(): void {
@@ -31,7 +33,7 @@ export class TradeDialogComponent {
 
   onExecute(): void {
     const tradeRequest = {
-      userId: "SPM_873127",
+      userId: this.authService.getLoggedInUserId(),
       symbol: this.data.symbol,
       price: this.data.price,
       quantity: this.quantity,
